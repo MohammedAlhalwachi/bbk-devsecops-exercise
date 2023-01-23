@@ -1,0 +1,23 @@
+﻿name: SonarScan
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+  pull_request:
+    types: [ opened, synchronize, reopened ]
+
+
+jobs:
+  audit:
+    name: npm Audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK
+        uses: actions/setup-node@v3
+        with:
+          node-version: 4.4
+      - name: Audit
+        run: npm i --package-lock-only && npm audit
