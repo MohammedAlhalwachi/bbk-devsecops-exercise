@@ -20,6 +20,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
+         
+      - name: Install npm-audit-html
         run: npm i npm-audit-html
 
       - name: npm Audit
