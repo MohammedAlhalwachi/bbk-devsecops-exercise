@@ -36,12 +36,12 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: audit-npm.json
-          path: audit-reports/npm.json
+          path: audit-npm.json
         if: always()
 
       - name: Upload Bandit Audit Reports
         uses: actions/upload-artifact@v3
         with:
           name: audit-bandit.json
-          path: audit-reports/bandit.json
+          path: audit-bandit.json
         if: always()
