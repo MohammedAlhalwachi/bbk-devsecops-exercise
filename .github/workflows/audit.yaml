@@ -36,5 +36,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: audit-reports
-          path: audit-reports
+          path: audit-reports/
         if: always()
