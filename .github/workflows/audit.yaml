@@ -20,9 +20,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
+        run: npm i npm-audit-html
 
       - name: npm Audit
-        run: npm i --package-lock-only && npm audit --json > audit-npm.json
+        run: npm i --package-lock-only && npm audit --json | npm-audit-html
         if: always()
 
       - name: Bandit check
@@ -36,7 +37,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: audit-npm.json
-          path: audit-npm.json
+          path: npm-audit.html
         if: always()
 
       - name: Upload Bandit Audit Reports
