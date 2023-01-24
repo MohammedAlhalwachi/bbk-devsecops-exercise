@@ -22,14 +22,14 @@ jobs:
           node-version: 18
 
       - name: npm Audit
-        run: npm i --package-lock-only && npm audit --json > audit-reports/npm.json
+        run: npm i --package-lock-only && npm audit --json > audit-npm.json
         if: always()
 
       - name: Bandit check
         uses: jpetrucciani/bandit-check@main
         with:
           path: '.'
-          bandit_flags: '-o audit-reports/bandit.json -f json'
+          bandit_flags: '-o audit-bandit.json -f json'
         if: always()
 
       - name: Upload npm Audit Reports
