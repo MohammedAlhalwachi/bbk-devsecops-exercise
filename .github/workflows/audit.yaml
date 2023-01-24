@@ -15,16 +15,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
       - name: Set up NodeJS
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      - name: Audit
+      - name: npm Audit
         run: npm i --package-lock-only && npm audit --json > npm-audit.json
+        continue-on-error: true
 
-      - name: Comment PR
-        uses: thollander/actions-comment-pull-request@v2
+      - name: Upload NPM Audit Report
+        uses: actions/upload-artifact@v3
         with:
-          message: |
-            Hello world ! :wave:
+          name: npm-audit-report
+          path: npm-audit.json
+        if: always()
+
+      - name: Bandit check
+        uses: jpetrucciani/bandit-check@main
+        with:
+          path: '.'
