@@ -23,18 +23,25 @@ jobs:
 
       - name: npm Audit
         run: npm i --package-lock-only && npm audit --json > audit-reports/npm.json
-        continue-on-error: true
+        if: always()
 
       - name: Bandit check
         uses: jpetrucciani/bandit-check@main
         with:
           path: '.'
           bandit_flags: '-o audit-reports/bandit.json -f json'
-        continue-on-error: true
+        if: always()
 
-      - name: Upload Audit Reports
+      - name: Upload npm Audit Reports
         uses: actions/upload-artifact@v3
         with:
-          name: audit-reports
-          path: audit-reports/
+          name: audit-npm.json
+          path: audit-reports/npm.json
+        if: always()
+
+      - name: Upload Bandit Audit Reports
+        uses: actions/upload-artifact@v3
+        with:
+          name: audit-bandit.json
+          path: audit-reports/bandit.json
         if: always()
